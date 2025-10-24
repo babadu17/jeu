@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Jeu de Clic</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>🖱️ Jeu de Clic</h1>
+
+    <p>Score : <span id="score">0</span></p>
+    <p>Points par clic : <span id="perClick">1</span></p>
+    <button id="clickBtn">Clique ici !</button>
+
+    <hr>
+
+    <h2>🏪 Boutique</h2>
+    <div id="shop">
+        <div class="item">
+            <p><strong>Amélioration 1 :</strong> +1 point par clic</p>
+            <p>Prix : <span id="upgrade1Price">50</span> points</p>
+            <button id="buyUpgrade1">Acheter</button>
+        </div>
+
+        <div class="item">
+            <p><strong>Amélioration 2 :</strong> +5 points par clic</p>
+            <p>Prix : <span id="upgrade2Price">200</span> points</p>
+            <button id="buyUpgrade2">Acheter</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
