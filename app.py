@@ -45,7 +45,7 @@ def move(data):
 
         # Vérifier collision avec objets
         for obj in objects[:]:
-            if abs(p['x'] - obj['x']) < 20 and abs(p['y'] - obj['y']) < 20:
+            if abs(p['x'] - obj['x']) < p['size'] and abs(p['y'] - obj['y']) < p['size']:
                 p['score'] += 1
                 p['size'] += 2  # augmente la taille
                 objects.remove(obj)
