@@ -4,7 +4,7 @@ const playerId = Math.random().toString(36).substring(2, 10);
 const playerColor = '#' + Math.floor(Math.random()*16777215).toString(16);
 let x = Math.random() * 600;
 let y = Math.random() * 400;
-const speed = 5;
+const speed = 10;
 
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
