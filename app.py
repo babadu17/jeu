@@ -50,12 +50,13 @@ def move(data):
     for obj in objects[:]:
         if abs(p['x'] - obj['x']) < p['size'] and abs(p['y'] - obj['y']) < p['size']:
             p['score'] += 1
-            p['size'] += 2  # augmente la taille
+            p['size'] += 2
             objects.remove(obj)
             socketio.start_background_task(spawn_object_delayed)
 
     # --- Collision entre joueurs ---
-    eaten = None  # on garde en mémoire qui est mangé
+    eaten = None
+    eater = None
     for jid, other in list(players.items()):
         if jid == pid:
             continue
@@ -67,13 +68,21 @@ def move(data):
                 p['score'] += other['size'] // 2
                 p['size'] += other['size'] // 2
                 eaten = jid
+                eater = pid
             elif p['size'] < other['size']:
                 other['score'] += p['size'] // 2
                 other['size'] += p['size'] // 2
                 eaten = pid
+                eater = jid
             break
 
     if eaten and eaten in players:
+        # 🔹 Récupérer la session SocketIO du joueur mangé
+        sid = players[eaten].get('sid')
+        if sid:
+            socketio.emit("eaten", {
+                "by": players[eater].get("name", "un autre joueur")
+            }, to=sid)
         del players[eaten]
 
     emit('update_game', {'players': players, 'objects': objects}, broadcast=True)
