@@ -49,7 +49,7 @@ def move(data):
 
     # --- Collision avec objets ---
     for obj in objects[:]:
-        if abs(p['x'] - obj['x']) < p['size'] and abs(p['y'] - obj['y']) < p['size']:
+        if abs(p['x'] - (obj['x']+7)) < p['size'] and abs(p['y'] - (obj['y']+7)) < p['size']:
             p['score'] += 1
             p['size'] += 2
             objects.remove(obj)
