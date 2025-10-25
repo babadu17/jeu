@@ -56,14 +56,15 @@ def move(data):
                 other = players[joueur]
                 if abs(p['x'] - other['x']) < (p['size'] + other['size']) and abs(p['y'] - other['y']) < (p['size'] + other['size']):
                     if p['size'] > other['size']:
-                        p['score'] += 2
+                        p['score'] += other['size'] // 2
                         p['size'] += other['size'] // 2
                         del players[joueur]
                     elif p['size'] < other['size']:
-                        other['score'] += 2
+                        other['score'] += p['size'] // 2
                         other['size'] += p['size'] // 2
                         del players[data['id']]
                     break
+                    
         emit('update_game', {'players': players, 'objects': objects}, broadcast=True)
 
        
