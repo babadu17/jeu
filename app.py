@@ -51,8 +51,22 @@ def move(data):
                 objects.remove(obj)
                 socketio.start_background_task(spawn_object_delayed)
 
+        for joueur in players:
+            if joueur != data['id']:
+                other = players[joueur]
+                if abs(p['x'] - other['x']) < (p['size'] + other['size']) and abs(p['y'] - other['y']) < (p['size'] + other['size']):
+                    if p['size'] > other['size']:
+                        p['score'] += 2
+                        p['size'] += other['size'] // 2
+                        del players[joueur]
+                    elif p['size'] < other['size']:
+                        other['score'] += 2
+                        other['size'] += p['size'] // 2
+                        del players[data['id']]
+                    break
         emit('update_game', {'players': players, 'objects': objects}, broadcast=True)
 
+       
 def spawn_object_delayed():
     socketio.sleep(3)
     objects.append({'id': random.randint(1000, 9999),
