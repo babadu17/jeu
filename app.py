@@ -51,7 +51,7 @@ def move(data):
     for obj in objects[:]:
         if abs(p['x'] - (obj['x']+7)) < p['size'] and abs(p['y'] - (obj['y']+7)) < p['size']:
             p['score'] += 1
-            p['size'] += 2
+            p['size'] += 0.1
             objects.remove(obj)
             socketio.start_background_task(spawn_object_delayed)
 
@@ -67,12 +67,12 @@ def move(data):
         if dx < (p['size'] + other['size']) and dy < (p['size'] + other['size']):
             if p['size'] > other['size']:
                 p['score'] += other['size'] // 2
-                p['size'] += other['size'] // 2
+                p['size'] += other['size'] // 10
                 eaten = jid
                 eater = pid
             elif p['size'] < other['size']:
                 other['score'] += p['size'] // 2
-                other['size'] += p['size'] // 2
+                other['size'] += p['size'] // 10
                 eaten = pid
                 eater = jid
             break
