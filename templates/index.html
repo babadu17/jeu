@@ -2,24 +2,17 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Jeu multijoueur</title>
+    <title>Mini MMO à ramasser</title>
     <style>
-        body {
-            font-family: sans-serif;
-            text-align: center;
-        }
-        canvas {
-            border: 2px solid black;
-            background-color: #f2f2f2;
-            margin-top: 10px;
-        }
+        canvas { background: #eee; display: block; margin: 0 auto; }
+        body { text-align: center; font-family: Arial, sans-serif; }
     </style>
 </head>
 <body>
-    <h1>🌍 Jeu multijoueur simple</h1>
-    <canvas id="game" width="800" height="600"></canvas>
+    <h1>Mini MMO : ramasse les objets !</h1>
+    <canvas id="gameCanvas" width="600" height="400"></canvas>
 
-    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='game.js') }}"></script>
 </body>
 </html>
