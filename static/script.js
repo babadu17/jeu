@@ -21,7 +21,7 @@ socket.on("eaten", (data) => {
     alert("💀 Tu as été mangé par " + data.by + " !");
 });
 
-// --- Mouvement ---
+// --- Déplacement souris ---
 document.addEventListener("mousemove", (e) => {
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -29,11 +29,11 @@ document.addEventListener("mousemove", (e) => {
     socket.emit("move", { id: playerId, x, y });
 });
 
-// --- Dessin du jeu ---
+// --- Dessin ---
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // objets
+    // objets (points à ramasser)
     for (const obj of objects) {
         ctx.fillStyle = "orange";
         ctx.beginPath();
@@ -50,6 +50,7 @@ function draw() {
         ctx.fill();
         ctx.stroke();
         ctx.fillStyle = "black";
+        ctx.font = "12px Arial";
         ctx.fillText(p.name + " (" + p.score + ")", p.x - 20, p.y - p.size - 10);
     }
 }
