@@ -33,7 +33,7 @@ def index():
 
 @socketio.on("connect")
 def connect():
-    print("Un joueur s'est connecté :", request.sid)
+    print("Un joueur s'est connecté")
 
 @socketio.on("disconnect")
 def disconnect():
@@ -47,12 +47,12 @@ def disconnect():
 def join(data):
     pid = data["id"]
     players[pid] = {
-        "x": random.randint(50, CANVAS_W - 50),
-        "y": random.randint(50, CANVAS_H - 50),
+        "x": random.randint(0, CANVAS_W),
+        "y": random.randint(0, CANVAS_H),
         "size": PLAYER_MIN_SIZE,
         "score": 0,
         "sid": request.sid,
-        "name": data.get("name", f"Joueur_{pid[:4]}")
+        "name": data.get("name", f"Joueur {pid[:4]}")
     }
     emit_game_update()
 
@@ -66,7 +66,7 @@ def move(data):
     p["x"] = clamp(int(data["x"]), 0, CANVAS_W)
     p["y"] = clamp(int(data["y"]), 0, CANVAS_H)
 
-    # --- Collision avec objets ---
+    # Collision avec objets
     for obj in objects[:]:
         if abs(p["x"] - obj["x"]) < p["size"] and abs(p["y"] - obj["y"]) < p["size"]:
             p["score"] += 1
@@ -74,7 +74,7 @@ def move(data):
             objects.remove(obj)
             socketio.start_background_task(spawn_object_delayed)
 
-    # --- Collision entre joueurs ---
+    # Collision entre joueurs
     eaten, eater = None, None
     for jid, other in list(players.items()):
         if jid == pid:
